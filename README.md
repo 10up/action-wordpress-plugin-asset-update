@@ -32,7 +32,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: WordPress.org plugin asset/readme update
-      uses: 10up/actions-wordpress/dotorg-plugin-asset-update@master
+      uses: 10up/action-wordpress-plugin-asset-update@master
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
@@ -42,7 +42,7 @@ jobs:
 * It would be more efficient to additionally use the `paths` filter for the `push` action to reduce the number of runs. So far in testing it is possible to limit it to pushes that include readme/asset files as specified, but not ones that *only* include those files. The Action itself still needs to run as written because it compares the totality of changes in the branch against what's in SVN and not just the contents of the current push.
 
 ## Contributing
-Want to help? Check out our [contributing guidelines](../CONTRIBUTING.md) to get started.
+Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get started.
 
 <p align="center">
 <a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
