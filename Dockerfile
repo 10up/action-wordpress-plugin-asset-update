@@ -1,13 +1,13 @@
 FROM debian:stable-slim
 
 LABEL "com.github.actions.name"="WordPress Plugin Readme Update"
-LABEL "com.github.actions.description"="Deploy readme updates to the WordPress Plugin Repository"
+LABEL "com.github.actions.description"="Deploy readme and asset updates to the WordPress Plugin Repository"
 LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="blue"
 
 LABEL maintainer="Helen Hou-Sandí <helen.y.hou@gmail.com>"
-LABEL version="1.0.0"
-LABEL repository="http://github.com/helen/actions-wordpress"
+LABEL version="1.2.1"
+LABEL repository="http://github.com/helen/action-wordpress-plugin-asset-update"
 
 RUN apt-get update \
 	&& apt-get install -y subversion rsync git \
