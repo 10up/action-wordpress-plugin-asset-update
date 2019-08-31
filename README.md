@@ -6,16 +6,18 @@ Because the WordPress.org plugin repository shows information from `readme.txt` 
 
 **Important note:** If your development process leads to a situation where `master` (or other specified branch) only contains changes to `readme.txt` or `assets` since the last sync to the plugin directory and those changes are in preparation for the next release, those changes will go live and potentially be misleading to users. Usage of this Action assumes a fairly traditional Git methodology that involves merging all changes to `master` when functional changes are ready and that this seemingly unlikely situation will therefore not happen in your repo; there are no safeguards against syncing changes based on readme/asset content, as that cannot be predicted.
 
+### ☞ This Action is meant to be used in tandem with our [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy)
+
 ## Configuration
 
 ### Required secrets
 * `SVN_USERNAME`
 * `SVN_PASSWORD`
 
-Secrets can be set while editing your workflow or in the repository settings. They cannot be viewed once stored. [GitHub secrets documentation](https://developer.github.com/actions/creating-workflows/storing-secrets/)
+[Secrets are set in your repository settings](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables). They cannot be viewed once stored.
 
 ### Optional environment variables
-* `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug. This should be a very rare case as WordPress assumes that the directory and initial plugin file have the same slug.
+* `SLUG` - defaults to the repository name, customizable in case your WordPress repository has a different slug or is capitalized differently.
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
 
 ## Example Workflow File
@@ -52,3 +54,4 @@ Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get st
 
 Our GitHub Actions are available for use and remix under the MIT license.
 
+### ☞ Check out our [collection of WordPress-focused GitHub Actions](https://github.com/10up/actions-wordpress)
