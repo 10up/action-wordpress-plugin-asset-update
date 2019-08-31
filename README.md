@@ -6,16 +6,18 @@ Because the WordPress.org plugin repository shows information from `readme.txt` 
 
 **Important note:** If your development process leads to a situation where `master` (or other specified branch) only contains changes to `readme.txt` or `assets` since the last sync to the plugin directory and those changes are in preparation for the next release, those changes will go live and potentially be misleading to users. Usage of this Action assumes a fairly traditional Git methodology that involves merging all changes to `master` when functional changes are ready and that this seemingly unlikely situation will therefore not happen in your repo; there are no safeguards against syncing changes based on readme/asset content, as that cannot be predicted.
 
+### ☞ This Action is meant to be used in tandem with our [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy)
+
 ## Configuration
 
 ### Required secrets
 * `SVN_USERNAME`
 * `SVN_PASSWORD`
 
-Secrets can be set while editing your workflow or in the repository settings. They cannot be viewed once stored. [GitHub secrets documentation](https://developer.github.com/actions/creating-workflows/storing-secrets/)
+[Secrets are set in your repository settings](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables). They cannot be viewed once stored.
 
 ### Optional environment variables
-* `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug. This should be a very rare case as WordPress assumes that the directory and initial plugin file have the same slug.
+* `SLUG` - defaults to the repository name, customizable in case your WordPress repository has a different slug or is capitalized differently.
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
 
 ## Example Workflow File
@@ -32,7 +34,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: WordPress.org plugin asset/readme update
-      uses: 10up/actions-wordpress/dotorg-plugin-asset-update@master
+      uses: 10up/action-wordpress-plugin-asset-update@master
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
@@ -42,7 +44,7 @@ jobs:
 * It would be more efficient to additionally use the `paths` filter for the `push` action to reduce the number of runs. So far in testing it is possible to limit it to pushes that include readme/asset files as specified, but not ones that *only* include those files. The Action itself still needs to run as written because it compares the totality of changes in the branch against what's in SVN and not just the contents of the current push.
 
 ## Contributing
-Want to help? Check out our [contributing guidelines](../CONTRIBUTING.md) to get started.
+Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get started.
 
 <p align="center">
 <a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
@@ -52,3 +54,4 @@ Want to help? Check out our [contributing guidelines](../CONTRIBUTING.md) to get
 
 Our GitHub Actions are available for use and remix under the MIT license.
 
+### ☞ Check out our [collection of WordPress-focused GitHub Actions](https://github.com/10up/actions-wordpress)
