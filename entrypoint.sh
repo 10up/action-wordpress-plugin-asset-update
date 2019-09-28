@@ -43,6 +43,10 @@ svn update --set-depth infinity trunk
 echo "➤ Copying files..."
 if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
 	echo "ℹ︎ Using .distignore"
+
+	# Use $TMP_DIR as the source of truth
+	TMP_DIR=$GITHUB_WORKSPACE
+
 	# Copy from current branch to /trunk, excluding dotorg assets
 	# The --delete flag will delete anything in destination that no longer exists in source
 	rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete
@@ -103,7 +107,7 @@ fi
 
 # Readme also has to be updated in the .org tag
 echo "➤ Preparing stable tag..."
-STABLE_TAG=$(grep -m 1 "^Stable tag:" "$GITHUB_WORKSPACE/readme.txt" | tr -d '\r\n' | awk -F ' ' '{print $NF}')
+STABLE_TAG=$(grep -m 1 "^Stable tag:" "$TMP_DIR/readme.txt" | tr -d '\r\n' | awk -F ' ' '{print $NF}')
 
 if [ -z "$STABLE_TAG" ]; then
     echo "ℹ︎ Could not get stable tag from readme.txt";
@@ -115,7 +119,7 @@ else
 		svn update --set-depth infinity "tags/$STABLE_TAG"
 
 		# Not doing the copying in SVN for the sake of easy history
-		rsync -c "$GITHUB_WORKSPACE/readme.txt" "tags/$STABLE_TAG/"
+		rsync -c "$TMP_DIR/readme.txt" "tags/$STABLE_TAG/"
 	else
 		echo "ℹ︎ Tag $STABLE_TAG not found"
 	fi
