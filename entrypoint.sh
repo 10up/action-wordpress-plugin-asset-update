@@ -43,6 +43,10 @@ svn update --set-depth infinity trunk
 echo "➤ Copying files..."
 if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
 	echo "ℹ︎ Using .distignore"
+
+	# Use $TMP_DIR as the source of truth
+	TMP_DIR=$GITHUB_WORKSPACE
+
 	# Copy from current branch to /trunk, excluding dotorg assets
 	# The --delete flag will delete anything in destination that no longer exists in source
 	rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete
