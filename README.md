@@ -1,10 +1,10 @@
 # WordPress.org Plugin Readme/Assets Update
 
-This Action commits any `readme.txt` and WordPress.org-specific assets changes in your specified branch to the WordPress.org plugin repository if no other changes have been made since the last deployment to WordPress.org. This is useful for updating things like screenshots or `Tested up to` separately from functional changes, provided your Git branching methodology avoids changing anything else in the specified branch between functional releases. It is **highly recommended** that you use a stable branch where you only merge readme/asset commits in between larger functional merges that only occur when preparing for a release (often implemented as `master` vs. `develop`).
+This Action commits any readme and WordPress.org-specific assets changes in your specified branch to the WordPress.org plugin repository if no other changes have been made since the last deployment to WordPress.org. This is useful for updating things like screenshots or `Tested up to` separately from functional changes, provided your Git branching methodology avoids changing anything else in the specified branch between functional releases. It is **highly recommended** that you use a stable branch where you only merge readme/asset commits in between larger functional merges that only occur when preparing for a release (often implemented as `master` vs. `develop`).
 
-Because the WordPress.org plugin repository shows information from `readme.txt` in the specified `Stable tag`, this Action also attempts to parse out the stable tag from `readme.txt` and deploy to there as well as `trunk`. If your stable tag is `trunk` or a tag that does not exist in the `tags` subfolder, it will skip that part of the update and only update `trunk` and/or `assets`.
+Because the WordPress.org plugin repository shows information from the readme in the specified `Stable tag`, this Action also attempts to parse out the stable tag from your readme and deploy to there as well as `trunk`. If your stable tag is `trunk` or a tag that does not exist in the `tags` subfolder, it will skip that part of the update and only update `trunk` and/or `assets`.
 
-**Important note:** If your development process leads to a situation where `master` (or other specified branch) only contains changes to `readme.txt` or `assets` since the last sync to the plugin directory and those changes are in preparation for the next release, those changes will go live and potentially be misleading to users. Usage of this Action assumes a fairly traditional Git methodology that involves merging all changes to `master` when functional changes are ready and that this seemingly unlikely situation will therefore not happen in your repo; there are no safeguards against syncing changes based on readme/asset content, as that cannot be predicted.
+**Important note:** If your development process leads to a situation where `master` (or other specified branch) only contains changes to the readme or assets directory since the last sync to the plugin directory and those changes are in preparation for the next release, those changes will go live and potentially be misleading to users. Usage of this Action assumes a fairly traditional Git methodology that involves merging all changes to `master` when functional changes are ready and that this seemingly unlikely situation will therefore not happen in your repo; there are no safeguards against syncing changes based on readme/asset content, as that cannot be predicted.
 
 ## Configuration
 
@@ -16,7 +16,8 @@ Secrets can be set while editing your workflow or in the repository settings. Th
 
 ### Optional environment variables
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug. This should be a very rare case as WordPress assumes that the directory and initial plugin file have the same slug.
-* `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`)
+* `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`).
+* `README_NAME` - defaults to `readme.txt`, customizable in case you use `README.md` instead, which is now quietly supported in the WordPress.org plugin repository.
 
 ## Example Workflow File
 ```yml
