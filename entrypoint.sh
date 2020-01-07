@@ -36,7 +36,10 @@ echo "ℹ︎ README_NAME is $README_NAME"
 
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
-
+EXCLUDE_FROM_GITIGNORE=""
+if [[ -e "$GITHUB_WORKSPACE/.gitignore" ]];
+  EXCLUDE_FROM_GITIGNORE=" --exclude-from=$GITHUB_WORKSPACE/.gitignore "
+fi
 # Checkout just trunk and assets for efficiency
 # Stable tag will come later, if applicable
 echo "➤ Checking out .org repository..."
@@ -54,7 +57,7 @@ if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
 
 	# Copy from current branch to /trunk, excluding dotorg assets
 	# The --delete flag will delete anything in destination that no longer exists in source
-	rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete
+	rsync -rc $EXCLUDE_FROM_GITIGNORE --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete
 else
 	echo "ℹ︎ Using .gitattributes"
 
@@ -89,7 +92,7 @@ else
 
 	# Copy from clean copy to /trunk, excluding dotorg assets
 	# The --delete flag will delete anything in destination that no longer exists in source
-	rsync -rc "$TMP_DIR/" trunk/ --delete
+	rsync -rc $EXCLUDE_FROM_GITIGNORE "$TMP_DIR/" trunk/ --delete
 fi
 
 # Copy dotorg assets to /assets
