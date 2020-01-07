@@ -37,7 +37,7 @@ echo "ℹ︎ README_NAME is $README_NAME"
 SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
 EXCLUDE_FROM_GITIGNORE=""
-if [[ -e "$GITHUB_WORKSPACE/.gitignore" ]];
+if [[ -e "$GITHUB_WORKSPACE/.gitignore" ]]; then
   EXCLUDE_FROM_GITIGNORE=" --exclude-from=$GITHUB_WORKSPACE/.gitignore "
 fi
 # Checkout just trunk and assets for efficiency
