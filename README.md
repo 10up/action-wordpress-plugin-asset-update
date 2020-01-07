@@ -14,7 +14,7 @@ Because the WordPress.org plugin repository shows information from the readme in
 * `SVN_USERNAME`
 * `SVN_PASSWORD`
 
-[Secrets are set in your repository settings](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables). They cannot be viewed once stored.
+[Secrets are set in your repository settings](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets). They cannot be viewed once stored.
 
 ### Optional environment variables
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug or is capitalized differently.
