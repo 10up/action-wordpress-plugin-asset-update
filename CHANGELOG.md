@@ -6,10 +6,10 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [1.4.0] - 2019-10-15
 ### Added
-- Support for `README.md` via an optional `README_NAME` environment variable
+- Support for `README.md` via an optional `README_NAME` environment variable.
 
 ### Fixed
-- Ensure readme updates when using `.distignore`
+- Ensure readme updates when using `.distignore`.
 
 ## [1.3.0] - 2019-08-31
 ### Added
