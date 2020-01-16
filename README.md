@@ -12,6 +12,8 @@ Because the WordPress.org plugin repository shows information from the readme in
 
 ### ☞ This Action is meant to be used in tandem with our [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy)
 
+### ☞ Check out our [collection of WordPress-focused GitHub Actions](https://github.com/10up/actions-wordpress)
+
 ## Configuration
 
 ### Required secrets
@@ -52,6 +54,10 @@ jobs:
 
 * It would be more efficient to additionally use the `paths` filter for the `push` action to reduce the number of runs. So far in testing it is possible to limit it to pushes that include readme/asset files as specified, but not ones that *only* include those files. The Action itself still needs to run as written because it compares the totality of changes in the branch against what's in SVN and not just the contents of the current push.
 
+## Changelog
+
+A complete listing of all notable changes to WordPress.org Plugin Readme/Assets Update are documented in [CHANGELOG.md](https://github.com/10up/action-wordpress-plugin-asset-update/blob/develop/CHANGELOG.md).
+
 ## Contributing
 
 Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get started.
@@ -65,5 +71,3 @@ Want to help? Check out our [contributing guidelines](CONTRIBUTING.md) to get st
 <p align="center">
 <a href="http://10up.com/contact/"><img src="https://10updotcom-wpengine.s3.amazonaws.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
 </p>
-
-### ☞ Check out our [collection of WordPress-focused GitHub Actions](https://github.com/10up/actions-wordpress)
