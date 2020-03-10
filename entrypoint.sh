@@ -34,7 +34,7 @@ if [[ -z "$README_NAME" ]]; then
 fi
 echo "ℹ︎ README_NAME is $README_NAME"
 
-SVN_URL="http://plugins.svn.wordpress.org/${SLUG}/"
+SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
@@ -54,7 +54,7 @@ if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
 
 	# Copy from current branch to /trunk, excluding dotorg assets
 	# The --delete flag will delete anything in destination that no longer exists in source
-	rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete
+	rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete --delete-excluded
 else
 	echo "ℹ︎ Using .gitattributes"
 
@@ -89,11 +89,11 @@ else
 
 	# Copy from clean copy to /trunk, excluding dotorg assets
 	# The --delete flag will delete anything in destination that no longer exists in source
-	rsync -rc "$TMP_DIR/" trunk/ --delete
+	rsync -rc "$TMP_DIR/" trunk/ --delete --delete-excluded
 fi
 
 # Copy dotorg assets to /assets
-rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete
+rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
 
 echo "➤ Preparing files..."
 
@@ -137,7 +137,7 @@ svn add . --force > /dev/null
 
 # SVN delete all deleted files
 # Also suppress stdout here
-svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm % > /dev/null
+svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
 
 # Now show full SVN status
 svn status
