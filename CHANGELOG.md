@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
+## [1.4.1] - 2020-03-12
+### Fixed
+- Ensure previously committed files that are later added to `.distignore` get deleted. Props [@pascalknecht](https://github.com/pascalknecht) via [#18](https://github.com/10up/action-wordpress-plugin-asset-update/pull/18).
+- Escape filenames to avoid errors with filenames containing an `@` symbol. Props [@Gaya](https://github.com/Gaya) via [#18](https://github.com/10up/action-wordpress-plugin-asset-update/pull/18).
+- Use `https` for WordPress.org URLs. Props [@dinhtungdu](https://github.com/dinhtungdu) via [#17](https://github.com/10up/action-wordpress-plugin-asset-update/pull/17).
+- Correct encrypted secrets documentation link. Props [@felipeelia](https://github.com/felipeelia) via [#10](https://github.com/10up/action-wordpress-plugin-asset-update/pull/10).
+
 ## [1.4.0] - 2019-10-15
 ### Added
 - Support for `README.md` via an optional `README_NAME` environment variable.
