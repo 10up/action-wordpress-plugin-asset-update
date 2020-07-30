@@ -29,6 +29,26 @@ Because the WordPress.org plugin repository shows information from the readme in
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`).
 * `README_NAME` - defaults to `readme.txt`, customizable in case you use `README.md` instead, which is now quietly supported in the WordPress.org plugin repository.
 
+## Example Git Workflow
+
+For this example, Git's `main` branch (the default on new repositories) corresponds directly to Subversion's `trunk` and is considered the "release" branch.
+
+In general, the expected workflow is as follows:
+
+1. Create a new branch for feature x
+2. When the feature is ready for release, merge it onto `main`
+3. On `main`, update the README to reflect the change, e.g.: set the "Stable tag", update the change log, etc. (although some of this could be done on the feature branch prior to merging)
+4. Update any assets in `.wordpress-org`
+5. Tag `main` with the new version number, e.g.: `1.1.0`
+
+At this point, the [deploy action](https://github.com/10up/action-wordpress-plugin-deploy) will push the tag as a Subversion branch to the WordPress svn repository and your new version will be live.
+
+And this is where _this_ action comes in…
+
+As `main` is our "release" branch, changes to anything other than the README and `.wordpress-org` can only be made live by tagging `main`.
+
+If, however, you need to update the README or assets folder (`.wordpress-org`) for any reason, you should do that directly on `main` and then push your changes. This action will verify that only the README and `.wordpress-org` contain changes and if so, will push them directly to `trunk` (NOTE: I'm not sure if `trunk` is always the case - please advise) on the WordPress svn repository.
+
 ## Example Workflow File
 
 ```yml
