@@ -35,7 +35,7 @@ fi
 echo "ℹ︎ README_NAME is $README_NAME"
 
 SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
-SVN_DIR="/github/svn-${SLUG}"
+SVN_DIR="${HOME}/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
 # Stable tag will come later, if applicable
@@ -61,7 +61,7 @@ else
 	cd "$GITHUB_WORKSPACE"
 
 	# "Export" a cleaned copy to a temp directory
-	TMP_DIR="/github/archivetmp"
+	TMP_DIR="${HOME}/archivetmp"
 	mkdir "$TMP_DIR"
 
 	git config --global user.email "10upbot+github@10up.com"
