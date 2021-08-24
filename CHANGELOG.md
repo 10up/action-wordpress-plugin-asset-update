@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
+## [2.0.0] - 2021-08-24
+This is now a composite Action, meaning that it runs directly on the GitHub Actions runner rather than spinning up its own container and is significantly faster.
+
+### Added
+- Set mime types on images in the SVN `assets` directory to prevent forced downloads on WordPress.org. Props [@nextgenthemes](https://github.com/nextgenthemes) via [action-wordpress-plugin-deploy#40](https://github.com/10up/action-wordpress-plugin-deploy/pull/40) and [@dinhtungdu](https://github.com/dinhtungdu) via [#21](https://github.com/10up/action-wordpress-plugin-asset-update/pull/21).
+- Support for stable tag extraction from Markdown lists in README.md files. Props [@grappler](https://github.com/grappler) via [#25](https://github.com/10up/action-wordpress-plugin-asset-update/pull/25).
+### Fixed
+- Avoid a Debian image issue where the container could not be built. Props [@helen](https://github.com/helen) via [#30](https://github.com/10up/action-wordpress-plugin-asset-update/pull/30).
+
 ## [1.4.1] - 2020-03-12
 ### Fixed
 - Ensure previously committed files that are later added to `.distignore` get deleted. Props [@pascalknecht](https://github.com/pascalknecht) via [#18](https://github.com/10up/action-wordpress-plugin-asset-update/pull/18).
@@ -34,6 +43,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Use more robust method of copying files (`-c` flag for `rsync`).
 
 [Unreleased]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/stable...develop
+[2.0.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.2.1...1.3.0
