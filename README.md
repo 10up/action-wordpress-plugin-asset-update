@@ -28,6 +28,7 @@ Because the WordPress.org plugin repository shows information from the readme in
 * `SLUG` - defaults to the respository name, customizable in case your WordPress repository has a different slug or is capitalized differently.
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`).
 * `README_NAME` - defaults to `readme.txt`, customizable in case you use `README.md` instead, which is now quietly supported in the WordPress.org plugin repository.
+* `IGNORE_OTHER_FILES` - defaults to `false`, which means that all your files are copied (as in [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy), respecting `.distignore` and `.gitignore`), and the Action will bail if anything except assets and `readme.txt` are modified. See "Important note" above. If you set this variable to `true`, then only assets and `readme.txt` will be copied, and changes to other files will be ignored and not committed.
 
 ## Example Workflow File
 
