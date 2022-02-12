@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exit 1
+
 # Note that this does not use pipefail because if the grep later
 # doesn't match I want to be able to show an error first
 set -eo
