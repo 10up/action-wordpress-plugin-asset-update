@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
-## [2.1.0] - 2022-03-19
+## [2.1.0] - 2022-04-12
 ### Added
 - Environment variable (`IGNORE_OTHER_FILES`) allowing to deploy updates to readme and/or assets without checking other files (props [@markjaquith](https://github.com/markjaquith) via [#32](https://github.com/10up/action-wordpress-plugin-asset-update/pull/32)).
 
