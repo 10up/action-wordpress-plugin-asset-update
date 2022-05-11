@@ -34,6 +34,11 @@ if [[ -z "$README_NAME" ]]; then
 fi
 echo "ℹ︎ README_NAME is $README_NAME"
 
+if [[ -z "$IGNORE_OTHER_FILES" ]]; then
+	IGNORE_OTHER_FILES=false
+fi
+echo "ℹ︎ IGNORE_OTHER_FILES is $IGNORE_OTHER_FILES"
+
 SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="${HOME}/svn-${SLUG}"
 
@@ -46,50 +51,58 @@ svn update --set-depth infinity assets
 svn update --set-depth infinity trunk
 
 echo "➤ Copying files..."
-if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
-	echo "ℹ︎ Using .distignore"
-
+if [ "$IGNORE_OTHER_FILES" = true ]; then
+	# Copy readme.txt to /trunk
+	cp "$GITHUB_WORKSPACE/$README_NAME" trunk/$README_NAME
+	
 	# Use $TMP_DIR as the source of truth
 	TMP_DIR=$GITHUB_WORKSPACE
-
-	# Copy from current branch to /trunk, excluding dotorg assets
-	# The --delete flag will delete anything in destination that no longer exists in source
-	rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete --delete-excluded
 else
-	echo "ℹ︎ Using .gitattributes"
+	if [[ -e "$GITHUB_WORKSPACE/.distignore" ]]; then
+		echo "ℹ︎ Using .distignore"
 
-	cd "$GITHUB_WORKSPACE"
+		# Use $TMP_DIR as the source of truth
+		TMP_DIR=$GITHUB_WORKSPACE
 
-	# "Export" a cleaned copy to a temp directory
-	TMP_DIR="${HOME}/archivetmp"
-	mkdir "$TMP_DIR"
+		# Copy from current branch to /trunk, excluding dotorg assets
+		# The --delete flag will delete anything in destination that no longer exists in source
+		rsync -rc --exclude-from="$GITHUB_WORKSPACE/.distignore" "$GITHUB_WORKSPACE/" trunk/ --delete --delete-excluded
+	else
+		echo "ℹ︎ Using .gitattributes"
 
-	git config --global user.email "10upbot+github@10up.com"
-	git config --global user.name "10upbot on GitHub"
+		cd "$GITHUB_WORKSPACE"
 
-	# If there's no .gitattributes file, write a default one into place
-	if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
-		cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
-		/$ASSETS_DIR export-ignore
-		/.gitattributes export-ignore
-		/.gitignore export-ignore
-		/.github export-ignore
-		EOL
+		# "Export" a cleaned copy to a temp directory
+		TMP_DIR="${HOME}/archivetmp"
+		mkdir "$TMP_DIR"
 
-		# Ensure we are in the $GITHUB_WORKSPACE directory, just in case
-		# The .gitattributes file has to be committed to be used
-		# Just don't push it to the origin repo :)
-		git add .gitattributes && git commit -m "Add .gitattributes file"
+		git config --global user.email "10upbot+github@10up.com"
+		git config --global user.name "10upbot on GitHub"
+
+		# If there's no .gitattributes file, write a default one into place
+		if [[ ! -e "$GITHUB_WORKSPACE/.gitattributes" ]]; then
+			cat > "$GITHUB_WORKSPACE/.gitattributes" <<-EOL
+			/$ASSETS_DIR export-ignore
+			/.gitattributes export-ignore
+			/.gitignore export-ignore
+			/.github export-ignore
+			EOL
+
+			# Ensure we are in the $GITHUB_WORKSPACE directory, just in case
+			# The .gitattributes file has to be committed to be used
+			# Just don't push it to the origin repo :)
+			git add .gitattributes && git commit -m "Add .gitattributes file"
+		fi
+
+		# This will exclude everything in the .gitattributes file with the export-ignore flag
+		git archive HEAD | tar x --directory="$TMP_DIR"
+
+		cd "$SVN_DIR"
+
+		# Copy from clean copy to /trunk, excluding dotorg assets
+		# The --delete flag will delete anything in destination that no longer exists in source
+		rsync -rc "$TMP_DIR/" trunk/ --delete --delete-excluded
 	fi
-
-	# This will exclude everything in the .gitattributes file with the export-ignore flag
-	git archive HEAD | tar x --directory="$TMP_DIR"
-
-	cd "$SVN_DIR"
-
-	# Copy from clean copy to /trunk, excluding dotorg assets
-	# The --delete flag will delete anything in destination that no longer exists in source
-	rsync -rc "$TMP_DIR/" trunk/ --delete --delete-excluded
 fi
 
 # Copy dotorg assets to /assets
