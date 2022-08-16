@@ -17,9 +17,6 @@ jobs:
           echo ::set-output name=result::"Release: ${VERSION}"
         id: title
       - name: Create Pull Request
-        uses: devops-infra/action-pull-request@v0.5.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: develop
-          title: ${{ steps.title.outputs.result }}
-          template: .github/release-pull-request-template.md
+        run: gh pr create --title "${{ steps.title.outputs.result }}" --body-file ./.github/release-pull-request-template.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
