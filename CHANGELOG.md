@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
+## [2.1.1] - 2022-08-16
+### Added
+- Add correct mime type for gif and SVG images (props [@ocean90](https://github.com/ocean90) via [#38](https://github.com/10up/action-wordpress-plugin-asset-update/pull/38)).
+
 ## [2.1.0] - 2022-04-12
 ### Added
 - Environment variable (`IGNORE_OTHER_FILES`) allowing to deploy updates to readme and/or assets without checking other files (props [@markjaquith](https://github.com/markjaquith) via [#32](https://github.com/10up/action-wordpress-plugin-asset-update/pull/32)).
@@ -48,6 +52,7 @@ This is now a composite Action, meaning that it runs directly on the GitHub Acti
 - Use more robust method of copying files (`-c` flag for `rsync`).
 
 [Unreleased]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/stable...develop
+[2.1.1]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.4.1...2.0.0
 [1.4.1]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.4.0...1.4.1
