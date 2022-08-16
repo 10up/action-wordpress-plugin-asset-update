@@ -9,18 +9,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Render template
-        id: template
-        uses: chuhlomin/render-template@v1.4
-        with:
-          template: .github/release-pull-request-template.md
       - name: Generate title
         run: |
-          VERSION=${github.ref#'release/'}
+          BRANCH=${GITHUB_REF##*/}
+          echo $BRANCH
+          VERSION=${BRANCH#'release/'}
           echo ::set-output name=result::"Release: ${VERSION}"
         id: title
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: devops-infra/action-pull-request@v0.5.0
         with:
-          body: ${{ steps.template.outputs.result }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          target_branch: develop
           title: ${{ steps.title.outputs.result }}
+          template: .github/release-pull-request-template.md
