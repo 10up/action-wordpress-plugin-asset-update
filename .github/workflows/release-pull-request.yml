@@ -1,0 +1,26 @@
+name: Release Pull Request Automation
+
+on:
+  create:
+jobs:
+  release-pull-request-automation:
+    if: ${{ github.event.ref_type == 'branch' && contains( github.ref, 'release/' ) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Render template
+        id: template
+        uses: chuhlomin/render-template@v1.4
+        with:
+          template: .github/release-pull-request-template.md
+      - name: Generate title
+        run: |
+          VERSION=${github.ref#'release/'}
+          echo ::set-output name=result::"Release: ${VERSION}"
+        id: title
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          body: ${{ steps.template.outputs.result }}
+          title: ${{ steps.title.outputs.result }}
