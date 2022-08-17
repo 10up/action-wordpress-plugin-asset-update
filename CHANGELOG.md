@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
-## [2.1.1] - 2022-08-16
+## [2.1.1] - 2022-08-7
 ### Added
 - Add correct mime type for gif and SVG images (props [@ocean90](https://github.com/ocean90) via [#38](https://github.com/10up/action-wordpress-plugin-asset-update/pull/38)).
 
