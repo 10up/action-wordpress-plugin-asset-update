@@ -54,7 +54,7 @@ echo "➤ Copying files..."
 if [ "$IGNORE_OTHER_FILES" = true ]; then
 	# Copy readme.txt to /trunk
 	cp "$GITHUB_WORKSPACE/$README_NAME" trunk/$README_NAME
-	
+
 	# Use $TMP_DIR as the source of truth
 	TMP_DIR=$GITHUB_WORKSPACE
 else
@@ -165,6 +165,9 @@ svn add . --force > /dev/null
 # SVN delete all deleted files
 # Also suppress stdout here
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
+
+#Resolves => SVN commit failed: Directory out of date
+svn update
 
 # Now show full SVN status
 svn status
