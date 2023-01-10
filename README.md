@@ -30,6 +30,26 @@ Because the WordPress.org plugin repository shows information from the readme in
 * `README_NAME` - defaults to `readme.txt`, customizable in case you use `README.md` instead, which is now quietly supported in the WordPress.org plugin repository.
 * `IGNORE_OTHER_FILES` - defaults to `false`, which means that all your files are copied (as in [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy), respecting `.distignore` and `.gitattributes`), and the Action will bail if anything except assets and `readme.txt` are modified. See "Important note" above. If you set this variable to `true`, then only assets and `readme.txt` will be copied, and changes to other files will be ignored and not committed.
 
+## Example Git Workflow
+
+For this example, Git's `main` branch (the default on new repositories) corresponds directly to Subversion's `trunk` and is considered the "release" branch.
+
+In general, the expected workflow when using the [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy) is as follows:
+
+1. Create a new branch for feature x
+2. When the feature is ready for release, merge it onto `main`
+3. On `main`, update the `readme.txt` to reflect the change, e.g.: set the "Stable tag", update the changelog, etc. (although some of this could be done on the feature branch prior to merging)
+4. Update any assets in `.wordpress-org`
+5. Tag `main` with the new version number, e.g.: `1.1.0`
+
+At this point, the [deploy action](https://github.com/10up/action-wordpress-plugin-deploy) will push the tag as a Subversion branch to the WordPress svn repository and your new version will be live.
+
+And this is where _this_ action comes in…
+
+As `main` is our "release" branch, changes to anything other than the `readme.txt` and `.wordpress-org` can only be made live by tagging `main`.
+
+If, however, you need to update the `readme.txt` or assets folder (`.wordpress-org`) for any reason, you should do that directly on `main` and then push your changes. This action will verify that only the `readme.txt` and `.wordpress-org` contain changes and if so, will push them directly to `trunk` on the WordPress svn repository.
+
 ## Example Workflow File
 
 ```yml
