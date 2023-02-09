@@ -105,8 +105,10 @@ else
 	fi
 fi
 
-# Copy dotorg assets to /assets
-rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+# Copy dotorg assets to /assets if directory exists
+if [ -d "$GITHUB_WORKSPACE/$ASSETS_DIR" ]; then
+    rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+fi
 
 # Fix screenshots getting force downloaded when clicking them
 # https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
