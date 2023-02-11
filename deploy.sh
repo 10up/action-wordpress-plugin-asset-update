@@ -105,9 +105,9 @@ else
 	fi
 fi
 
-# Copy dotorg assets to /assets if directory exists
-if [ -d "$GITHUB_WORKSPACE/$ASSETS_DIR" ]; then
-    rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+# Do not sync assets if SKIP_ASSETS set to true
+if [[ "$SKIP_ASSETS" != "true" ]]; then
+     rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
 fi
 
 # Fix screenshots getting force downloaded when clicking them
