@@ -105,8 +105,10 @@ else
 	fi
 fi
 
-# Copy dotorg assets to /assets
-rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+# Do not sync assets if SKIP_ASSETS set to true
+if [[ "$SKIP_ASSETS" != "true" ]]; then
+     rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+fi
 
 # Fix screenshots getting force downloaded when clicking them
 # https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
