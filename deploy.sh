@@ -54,7 +54,7 @@ echo "➤ Copying files..."
 if [ "$IGNORE_OTHER_FILES" = true ]; then
 	# Copy readme.txt to /trunk
 	cp "$GITHUB_WORKSPACE/$README_NAME" trunk/$README_NAME
-	
+
 	# Use $TMP_DIR as the source of truth
 	TMP_DIR=$GITHUB_WORKSPACE
 else
@@ -105,8 +105,10 @@ else
 	fi
 fi
 
-# Copy dotorg assets to /assets
-rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+# Do not sync assets if SKIP_ASSETS set to true
+if [[ "$SKIP_ASSETS" != "true" ]]; then
+     rsync -rc "$GITHUB_WORKSPACE/$ASSETS_DIR/" assets/ --delete --delete-excluded
+fi
 
 # Fix screenshots getting force downloaded when clicking them
 # https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
@@ -165,6 +167,9 @@ svn add . --force > /dev/null
 # SVN delete all deleted files
 # Also suppress stdout here
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
+
+#Resolves => SVN commit failed: Directory out of date
+svn update
 
 # Now show full SVN status
 svn status
