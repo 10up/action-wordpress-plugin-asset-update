@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
+## [2.1.2] - 2023-09-05
+
+### Added
+- Include an example git workflow section in the README (props [@tedmasterweb](https://github.com/tedmasterweb), [@Preciousomonze](https://github.com/Preciousomonze), [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#23](https://github.com/10up/action-wordpress-plugin-asset-update/pull/23)).
+- Ability to skip updating assets by setting `SKIP_ASSETS` to `true` (props [@azizultex](https://github.com/azizultex), [@cadic](https://github.com/cadic), [@Sidsector9](https://github.com/Sidsector9) via [#48](https://github.com/10up/action-wordpress-plugin-asset-update/pull/48)).
+
+### Changed
+- Replaced the deprecated `set-output` command with redirection to `$GITHUB_OUTPUT` (props [@Preciousomonze](https://github.com/Preciousomonze), [@peterwilsoncc](https://github.com/peterwilsoncc), [@jeffpaul](https://github.com/jeffpaul) via [#52](https://github.com/10up/action-wordpress-plugin-asset-update/pull/52)).
+
+### Fixed
+- Run an `svn update` to resolve error: `SVN commit failed: Directory out of date` (props [@zaerl](https://github.com/zaerl), [@cadic](https://github.com/cadic) via [#46](https://github.com/10up/action-wordpress-plugin-asset-update/pull/46)).
+
 ## [2.1.1] - 2022-08-7
 ### Added
 - Add correct mime type for gif and SVG images (props [@ocean90](https://github.com/ocean90) via [#38](https://github.com/10up/action-wordpress-plugin-asset-update/pull/38)).
@@ -52,6 +64,7 @@ This is now a composite Action, meaning that it runs directly on the GitHub Acti
 - Use more robust method of copying files (`-c` flag for `rsync`).
 
 [Unreleased]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/stable...develop
+[2.1.2]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/1.4.1...2.0.0
