@@ -58,7 +58,7 @@ svn update --set-depth infinity trunk
 echo "➤ Copying files..."
 if [ "$IGNORE_OTHER_FILES" = true ]; then
 	# Copy readme.txt to /trunk
-	cp "$GITHUB_WORKSPACE/$README_NAME" trunk/$README_NAME
+	cp "$GITHUB_WORKSPACE/$README_NAME" "trunk/$README_NAME"
 
 	# Use $TMP_DIR as the source of truth
 	TMP_DIR=$GITHUB_WORKSPACE
