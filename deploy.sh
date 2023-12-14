@@ -133,7 +133,7 @@ fi
 echo "➤ Preparing files..."
 
 # If we want to ignore changes in the vendor directory, revert those back
-if [[ "$IGNORE_VENDOR_DIR" == "true" ]]; then
+if [[ "$IGNORE_VENDOR_DIR" == "true" ]] && svn stat trunk | grep -qi -e " trunk/vendor$" -e " trunk/vendor/"; then
 	echo "ℹ︎ Reverting changes in vendor directory"
 	svn revert --depth=infinity trunk/vendor
 fi
