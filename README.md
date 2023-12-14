@@ -29,6 +29,7 @@ Because the WordPress.org plugin repository shows information from the readme in
 * `ASSETS_DIR` - defaults to `.wordpress-org`, customizable for other locations of WordPress.org plugin repository-specific assets that belong in the top-level `assets` directory (the one on the same level as `trunk`). If you want to skip updating assets because you don't have an assets directory, set `SKIP_ASSETS : true`
 * `README_NAME` - defaults to `readme.txt`, customizable in case you use `README.md` instead, which is now quietly supported in the WordPress.org plugin repository.
 * `IGNORE_OTHER_FILES` - defaults to `false`, which means that all your files are copied (as in [WordPress.org Plugin Deploy Action](https://github.com/10up/action-wordpress-plugin-deploy), respecting `.distignore` and `.gitattributes`), and the Action will bail if anything except assets and `readme.txt` are modified. See "Important note" above. If you set this variable to `true`, then only assets and `readme.txt` will be copied, and changes to other files will be ignored and not committed.
+* `IGNORE_VENDOR_DIR` - defaults to `false`. If you want to ignore any changes made in the `vendor` directory, set this to `true`. For example, if you have production dependencies that are managed by Composer, you'll often run into issues where the contents of the `vendor` directory are modified during the build process and this Action will bail because of those changes. Setting this to `true` will revert those changes before committing to the svn repo.
 
 ## Example Git Workflow
 

@@ -39,6 +39,11 @@ if [[ -z "$IGNORE_OTHER_FILES" ]]; then
 fi
 echo "ℹ︎ IGNORE_OTHER_FILES is $IGNORE_OTHER_FILES"
 
+if [[ -z "$IGNORE_VENDOR_DIR" ]]; then
+	IGNORE_VENDOR_DIR=false
+fi
+echo "ℹ︎ IGNORE_VENDOR_DIR is $IGNORE_VENDOR_DIR"
+
 SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
 SVN_DIR="${HOME}/svn-${SLUG}"
 
@@ -127,6 +132,12 @@ fi
 
 echo "➤ Preparing files..."
 
+# If we want to ignore changes in the vendor directory, revert those back
+if [[ "$IGNORE_VENDOR_DIR" == "true" ]]; then
+	echo "ℹ︎ Reverting changes in vendor directory"
+	svn revert --depth=infinity trunk/vendor
+fi
+
 svn status
 
 if [[ -z $(svn stat) ]]; then
@@ -168,7 +179,7 @@ svn add . --force > /dev/null
 # Also suppress stdout here
 svn status | grep '^\!' | sed 's/! *//' | xargs -I% svn rm %@ > /dev/null
 
-#Resolves => SVN commit failed: Directory out of date
+# Resolves => SVN commit failed: Directory out of date
 svn update
 
 # Now show full SVN status
