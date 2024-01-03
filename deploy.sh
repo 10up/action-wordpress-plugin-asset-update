@@ -127,6 +127,12 @@ fi
 
 echo "➤ Preparing files..."
 
+# Revert changes in vendor directory in trunk.
+# This is needed because composer dynamically generates files using hashing.
+# In reality, the files are not changed, but SVN thinks they are and throws an error.
+svn revert --depth=infinity trunk/vendor/composer
+svn revert --depth=infinity trunk/vendor/autoload.php
+
 svn status
 
 if [[ -z $(svn stat) ]]; then
