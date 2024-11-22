@@ -64,6 +64,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Install SVN ( Subversion )
+      run: |
+        sudo apt-get update
+        sudo apt-get install subversion
     - name: WordPress.org plugin asset/readme update
       uses: 10up/action-wordpress-plugin-asset-update@stable
       env:
