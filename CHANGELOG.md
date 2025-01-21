@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
+## [2.2.0] - 2025-01-21
+### Fixed
+- Install svn as part of the workflow if needed (props [@kirtangajjar](https://github.com/kirtangajjar), [@swissspidy](https://github.com/swissspidy), [@thrijith](https://github.com/thrijith), [@iamdharmesh](https://github.com/iamdharmesh), [@peterwilsoncc](https://github.com/peterwilsoncc) via [#60](https://github.com/10up/action-wordpress-plugin-asset-update/pull/60), [#62](https://github.com/10up/action-wordpress-plugin-asset-update/pull/62)).
+
+### Developer
+- Replaced `lee-dohm/no-response` with `actions/stale` to help with closing no-response/stale issues (props [@jeffpaul](https://github.com/jeffpaul), [@dkotter](https://github.com/dkotter) via [#57](https://github.com/10up/action-wordpress-plugin-asset-update/pull/57)).
+
 ## [2.1.3] - 2024-01-04
 ### Added
 - Ignore changes to the `vendor/composer` directory and the `vendor/autoload.php` file to prevent modified file errors (props [@ravinderk](https://github.com/ravinderk), [@dkotter](https://github.com/dkotter), [@cadic](https://github.com/cadic) via [#54](https://github.com/10up/action-wordpress-plugin-asset-update/pull/54), [#55](https://github.com/10up/action-wordpress-plugin-asset-update/pull/55)).
@@ -67,6 +74,7 @@ This is now a composite Action, meaning that it runs directly on the GitHub Acti
 - Use more robust method of copying files (`-c` flag for `rsync`).
 
 [Unreleased]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/stable...develop
+[2.2.0]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.3...2.2.0
 [2.1.3]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/10up/action-wordpress-plugin-asset-update/compare/2.1.0...2.1.1
