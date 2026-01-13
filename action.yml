@@ -7,6 +7,27 @@ branding:
 runs:
   using: 'composite'
   steps:
-    - id: deploy
+    - name: Determine if SVN needs to be installed
+      id: svn-install-check
+      run: |
+        if ! command -v svn &> /dev/null; then
+          echo "svn-installed=false" >> $GITHUB_OUTPUT
+        else
+          echo "svn-installed=true" >> $GITHUB_OUTPUT
+        fi
+      shell: bash
+    - name: Install SVN
+      if: steps.svn-install-check.outputs.svn-installed == 'false'
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y subversion
+        # Verify installation
+        if ! command -v svn &> /dev/null; then
+          echo "SVN installation failed."
+          exit 1
+        fi
+      shell: bash
+    - name: Deploy asset update to WordPress Plugin Repository
+      id: deploy
       run: ${{ github.action_path }}/deploy.sh
       shell: bash
