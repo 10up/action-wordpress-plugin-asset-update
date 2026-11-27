@@ -138,6 +138,11 @@ fi
 
 # Fix screenshots getting force downloaded when clicking them
 # https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
+# svn propset only works on versioned files, so add any new assets first.
+# Otherwise svn add later gives new images application/octet-stream.
+if test -d "$SVN_DIR/assets"; then
+    svn add --force "$SVN_DIR/assets" > /dev/null
+fi
 if test -d "$SVN_DIR/assets" && test -n "$(find "$SVN_DIR/assets" -maxdepth 1 -name "*.png" -print -quit)"; then
     svn propset svn:mime-type "image/png" "$SVN_DIR/assets/"*.png || true
 fi
